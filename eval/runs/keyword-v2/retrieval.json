@@ -1,0 +1,76 @@
+{
+  "created_at": "2026-09-19T13:27:29.645093+00:00",
+  "spec": {
+    "dataset_sha256": "d1ce2f14c7d78807086b82576858fb657af773c778170b9726cb008d0d5a166b",
+    "runner_sha256": "5eb8908697ea9248a470efe0c9b140ca605d5cc59c4e4d5a6d15446cae952ca4",
+    "database_sha256": "d329bd07de6e626088a661cb4a42e6c10ec9c8149485860dc98c0e88b735ea7c",
+    "environment": {
+      "python": "3.14.6",
+      "packages": {
+        "openai": "2.48.0",
+        "lancedb": "0.34.0",
+        "neo4j": "6.2.0",
+        "pandas": "3.0.5",
+        "ragas": "0.4.3",
+        "datasets": "5.0.0"
+      }
+    },
+    "k": 5,
+    "methods": [
+      "keyword"
+    ],
+    "embedding_model": "text-embedding-3-large",
+    "lance_version": 2,
+    "lance_rows": 310,
+    "indexes": [
+      "IndexConfig(name=\"text_idx\", index_type=\"FTS\", columns=[\"text\"], index_uuid=\"bfab9b0e-c007-4c5f-95c8-b6fd4d06522c\", type_url=\"/lance.table.InvertedIndexDetails\", created_at=datetime.datetime(2026, 7, 25, 17, 57, 40, 149000, tzinfo=datetime.timezone.utc), num_indexed_rows=310, num_unindexed_rows=0, size_bytes=254_240, num_segments=1, index_version=1, index_details={'ascii_folding': True, 'base_tokenizer': 'simple', 'custom_stop_words': None, 'lance_tokenizer': None, 'language': 'English', 'lower_case': True, 'max_ngram_length': 3, 'max_token_length': 40, 'min_ngram_length': 3, 'prefix_only': False, 'remove_stop_words': True, 'stem': True, 'with_position': False})"
+    ],
+    "query_policy": "Original Korean question, no filters; same vector for vector and hybrid",
+    "method_order": "fixed keyword/vector/hybrid; latency descriptive only (cache/order effects)"
+  },
+  "rows": [
+    {
+      "id": "NARR-1",
+      "question": "거푸집 해체 중 떨어짐 사고의 재발방지대책은 무엇인가요?",
+      "method": "keyword",
+      "status": "completed",
+      "case_ids": [
+        "TA-0272",
+        "TA-0274",
+        "TA-0051",
+        "TA-0187",
+        "TA-0078"
+      ],
+      "seconds_including_uncached_embedding": 0.195
+    },
+    {
+      "id": "NARR-2",
+      "question": "광차에 의한 사고 사례가 있나요? 어떻게 조치했나요?",
+      "method": "keyword",
+      "status": "completed",
+      "case_ids": [
+        "TA-0291",
+        "TA-0093",
+        "TA-0310",
+        "TA-0088",
+        "TA-0225"
+      ],
+      "seconds_including_uncached_embedding": 0.008
+    },
+    {
+      "id": "NARR-3",
+      "question": "굴착 중 낙석에 맞은 사고 사례와 이후 조치사항을 알려주세요.",
+      "method": "keyword",
+      "status": "completed",
+      "case_ids": [
+        "TA-0237",
+        "TA-0255",
+        "TA-0290",
+        "TA-0303",
+        "TA-0035"
+      ],
+      "seconds_including_uncached_embedding": 0.006
+    }
+  ],
+  "embeddings": {}
+}

@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: construction-rag
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/health
+    autoDeployTrigger: checksPass
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: NEO4J_URI
+        sync: false
+      - key: NEO4J_USER
+        sync: false
+      - key: NEO4J_PASSWORD
+        sync: false
+      - key: SQLITE_PATH
+        value: /app/accidents.db
+      - key: LANCEDB_DIR
+        value: /app/lancedb
+      - key: CHATSTORE_PATH
+        value: /app/runtime/chats.db
+      - key: AGENT_MODEL
+        value: gpt-4o
+      - key: TRANSLATE_MODEL
+        value: gpt-4o-mini
+      - key: EMBED_MODEL
+        value: text-embedding-3-large

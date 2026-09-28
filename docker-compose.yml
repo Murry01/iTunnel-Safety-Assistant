@@ -1,0 +1,20 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      SQLITE_PATH: /app/accidents.db
+      LANCEDB_DIR: /app/lancedb
+      CHATSTORE_PATH: /app/runtime/chats.db
+      NEO4J_URI: ${NEO4J_DOCKER_URI:-bolt://host.docker.internal:7687}
+    volumes:
+      - chat_data:/app/runtime
+    restart: unless-stopped
+
+volumes:
+  chat_data:

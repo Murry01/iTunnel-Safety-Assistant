@@ -1,0 +1,37 @@
+[
+  {
+    "id": "AGG-1",
+    "category": "aggregation",
+    "lang": "ko",
+    "question": "터널 종류별 사고 건수를 알려주세요.",
+    "reference": "도로터널 124, 철도터널 114, 기타 51, 지하차도 21 (total 310).",
+    "expected": {
+      "any_of": [
+        "get_statistics",
+        "query_graph"
+      ],
+      "all_of": []
+    },
+    "citation_required": null,
+    "attempt": 1,
+    "recorded_at": "2026-09-19T13:27:20.756866+00:00",
+    "answer": "",
+    "status": "error",
+    "error": {
+      "type": "APIConnectionError",
+      "http_status": null,
+      "code": null,
+      "retryable": true,
+      "retry_after_seconds": 0.0
+    },
+    "tools_called": [],
+    "trace": [],
+    "contexts": [],
+    "context_capture": "exact_model_tool_messages",
+    "completion": {},
+    "usage": [],
+    "warnings": [],
+    "tool_error_count": 0,
+    "seconds": 3.094
+  }
+]

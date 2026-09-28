@@ -1,0 +1,759 @@
+[
+  {
+    "id": "AGG-1",
+    "category": "aggregation",
+    "lang": "ko",
+    "question": "터널 종류별 사고 건수를 알려주세요.",
+    "expected": {
+      "any_of": [
+        "get_statistics",
+        "query_graph"
+      ],
+      "all_of": []
+    },
+    "reference": "도로터널 124, 철도터널 114, 기타 51, 지하차도 21 (total 310).",
+    "answer": "터널 종류별 사고 건수는 다음과 같습니다:\n\n- 도로터널: 124건\n- 철도터널: 114건\n- 기타: 51건\n- 지하차도: 21건",
+    "tools_called": [
+      "get_statistics"
+    ],
+    "trace": [
+      {
+        "tool": "get_statistics",
+        "args": {
+          "sql": "SELECT tunnel_type, COUNT(*) as count FROM accidents GROUP BY tunnel_type"
+        }
+      }
+    ],
+    "contexts": [
+      "[{\"tunnel_type\": \"기타\", \"count\": 51}, {\"tunnel_type\": \"도로터널\", \"count\": 124}, {\"tunnel_type\": \"지하차도\", \"count\": 21}, {\"tunnel_type\": \"철도터널\", \"count\": 114}]"
+    ],
+    "seconds": 2.6
+  },
+  {
+    "id": "AGG-1",
+    "category": "aggregation",
+    "lang": "en",
+    "question": "How many accidents occurred in each tunnel type?",
+    "expected": {
+      "any_of": [
+        "get_statistics",
+        "query_graph"
+      ],
+      "all_of": []
+    },
+    "reference": "도로터널 124, 철도터널 114, 기타 51, 지하차도 21 (total 310).",
+    "answer": "The number of accidents that occurred in each tunnel type is as follows:\n\n- 도로터널 (Road Tunnel): 124 accidents\n- 철도터널 (Railway Tunnel): 114 accidents\n- 기타 (Other): 51 accidents\n- 지하차도 (Underpass): 21 accidents",
+    "tools_called": [
+      "get_statistics"
+    ],
+    "trace": [
+      {
+        "tool": "get_statistics",
+        "args": {
+          "sql": "SELECT tunnel_type, COUNT(*) as accident_count FROM accidents GROUP BY tunnel_type"
+        }
+      }
+    ],
+    "contexts": [
+      "[{\"tunnel_type\": \"기타\", \"accident_count\": 51}, {\"tunnel_type\": \"도로터널\", \"accident_count\": 124}, {\"tunnel_type\": \"지하차도\", \"accident_count\": 21}, {\"tunnel_type\": \"철도터널\", \"accident_count\": 114}]"
+    ],
+    "seconds": 2.4
+  },
+  {
+    "id": "AGG-2",
+    "category": "aggregation",
+    "lang": "ko",
+    "question": "사망자가 가장 많이 발생한 사고종류는 무엇인가요?",
+    "expected": {
+      "any_of": [
+        "get_statistics",
+        "query_graph"
+      ],
+      "all_of": []
+    },
+    "reference": "물체에 맞음 with 6 deaths, followed by 떨어짐 with 5. Total fatalities across all cases: 18.",
+    "answer": "사망자가 가장 많이 발생한 사고종류는 \"물체에 맞음\"으로, 총 6명의 사망자가 발생했습니다.",
+    "tools_called": [
+      "get_statistics"
+    ],
+    "trace": [
+      {
+        "tool": "get_statistics",
+        "args": {
+          "sql": "SELECT accident_type, SUM(fatalities) as total_fatalities FROM accidents GROUP BY accident_type ORDER BY total_fatalities DESC LIMIT 1;"
+        }
+      }
+    ],
+    "contexts": [
+      "[{\"accident_type\": \"물체에 맞음\", \"total_fatalities\": 6}]"
+    ],
+    "seconds": 1.4
+  },
+  {
+    "id": "AGG-2",
+    "category": "aggregation",
+    "lang": "en",
+    "question": "Which accident type caused the most worker deaths?",
+    "expected": {
+      "any_of": [
+        "get_statistics",
+        "query_graph"
+      ],
+      "all_of": []
+    },
+    "reference": "물체에 맞음 with 6 deaths, followed by 떨어짐 with 5. Total fatalities across all cases: 18.",
+    "answer": "The accident type that caused the most worker deaths is \"struck-by (물체에 맞음)\" with a total of 6 fatalities.",
+    "tools_called": [
+      "get_statistics"
+    ],
+    "trace": [
+      {
+        "tool": "get_statistics",
+        "args": {
+          "sql": "SELECT accident_type, SUM(fatalities) AS total_fatalities FROM accidents GROUP BY accident_type ORDER BY total_fatalities DESC LIMIT 1;"
+        }
+      }
+    ],
+    "contexts": [
+      "[{\"accident_type\": \"물체에 맞음\", \"total_fatalities\": 6}]"
+    ],
+    "seconds": 2.3
+  },
+  {
+    "id": "AGG-3",
+    "category": "aggregation",
+    "lang": "ko",
+    "question": "해체작업 중 발생한 사고는 총 몇 건인가요?",
+    "expected": {
+      "any_of": [
+        "get_statistics",
+        "query_graph"
+      ],
+      "all_of": []
+    },
+    "reference": "34 accidents occurred during 해체작업 (dismantling work).",
+    "answer": "해체작업 중 발생한 사고는 총 34건입니다.",
+    "tools_called": [
+      "get_statistics"
+    ],
+    "trace": [
+      {
+        "tool": "get_statistics",
+        "args": {
+          "sql": "SELECT COUNT(*) FROM accidents WHERE work_process = '해체작업'"
+        }
+      }
+    ],
+    "contexts": [
+      "[{\"COUNT(*)\": 34}]"
+    ],
+    "seconds": 1.3
+  },
+  {
+    "id": "AGG-3",
+    "category": "aggregation",
+    "lang": "en",
+    "question": "How many accidents happened during dismantling work?",
+    "expected": {
+      "any_of": [
+        "get_statistics",
+        "query_graph"
+      ],
+      "all_of": []
+    },
+    "reference": "34 accidents occurred during 해체작업 (dismantling work).",
+    "answer": "[AGENT ERROR] Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o in organization org-yGP1ewhqUbfmPo6ACQR0zGL5 on tokens per min (TPM): Limit 30000, Used 30000, Requested 427. Please try again in 854ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}",
+    "tools_called": [
+      "get_statistics"
+    ],
+    "trace": [
+      {
+        "tool": "get_statistics",
+        "args": {
+          "sql": "SELECT COUNT(*) FROM accidents WHERE work_process = '해체작업'"
+        }
+      }
+    ],
+    "contexts": [
+      "[{\"COUNT(*)\": 34}]"
+    ],
+    "seconds": 4.7
+  },
+  {
+    "id": "ENUM-1",
+    "category": "enumeration_graph",
+    "lang": "ko",
+    "question": "터널 공사에서 발생하는 사고 유형을 모두 나열해 주세요.",
+    "expected": {
+      "any_of": [
+        "query_graph",
+        "get_statistics"
+      ],
+      "all_of": []
+    },
+    "reference": "Exactly 10 types: 물체에 맞음(70), 넘어짐(63), 떨어짐(55), 끼임(47), 부딪힘(40), 절단, 베임(17), 깔림(9), 찔림(5), 화재(3), 감전(1). '절단, 베임' is one single type.",
+    "answer": "[AGENT ERROR] Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o in organization org-yGP1ewhqUbfmPo6ACQR0zGL5 on tokens per min (TPM): Limit 30000, Used 30000, Requested 402. Please try again in 804ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}",
+    "tools_called": [],
+    "trace": [],
+    "contexts": [],
+    "seconds": 2.2
+  },
+  {
+    "id": "ENUM-1",
+    "category": "enumeration_graph",
+    "lang": "en",
+    "question": "List all the types of accidents that occur in tunnel construction.",
+    "expected": {
+      "any_of": [
+        "query_graph",
+        "get_statistics"
+      ],
+      "all_of": []
+    },
+    "reference": "Exactly 10 types: 물체에 맞음(70), 넘어짐(63), 떨어짐(55), 끼임(47), 부딪힘(40), 절단, 베임(17), 깔림(9), 찔림(5), 화재(3), 감전(1). '절단, 베임' is one single type.",
+    "answer": "The types of accidents that occur in tunnel construction are as follows:\n\n1. 절단, 베임 (Cutting, Laceration)\n2. 물체에 맞음 (Struck-by Object)\n3. 떨어짐 (Fall)\n4. 넘어짐 (Trip)\n5. 부딪힘 (Collision)\n6. 끼임 (Caught-in or Between)\n7. 감전 (Electric Shock)\n8. 깔림 (Crushed)\n9. 찔림 (Puncture)\n10. 화재 (Fire)",
+    "tools_called": [
+      "query_graph"
+    ],
+    "trace": [
+      {
+        "tool": "query_graph",
+        "args": {
+          "cypher": "MATCH (a:Accident)-[:RESULTED_IN]->(t:AccidentType) RETURN DISTINCT t.name AS accident_type"
+        }
+      }
+    ],
+    "contexts": [
+      "[{\"accident_type\": \"절단, 베임\"}, {\"accident_type\": \"물체에 맞음\"}, {\"accident_type\": \"떨어짐\"}, {\"accident_type\": \"넘어짐\"}, {\"accident_type\": \"부딪힘\"}, {\"accident_type\": \"끼임\"}, {\"accident_type\": \"감전\"}, {\"accident_type\": \"깔림\"}, {\"accident_type\": \"찔림\"}, {\"accident_type\": \"화재\"}]"
+    ],
+    "seconds": 5.6
+  },
+  {
+    "id": "ENUM-2",
+    "category": "enumeration_graph",
+    "lang": "ko",
+    "question": "안전수칙 미준수와 관련된 사고는 주로 어떤 작업프로세스에서 발생하나요?",
+    "expected": {
+      "any_of": [
+        "query_graph",
+        "get_statistics"
+      ],
+      "all_of": []
+    },
+    "reference": "Top processes: 설치작업 35, 이동 31, 해체작업 25, 조립작업 17, 정리작업 17. 안전수칙 미준수 is an L2 cause reached through its L3 sub-causes.",
+    "answer": "안전수칙 미준수와 관련된 사고는 주로 다음과 같은 작업프로세스에서 발생합니다:\n\n1. 설치작업 - 35건\n2. 이동 - 31건\n3. 해체작업 - 25건\n4. 조립작업 - 17건\n5. 정리작업 - 17건\n6. 운반작업 - 16건\n\n이 외에도 준비작업, 굴착작업, 타설작업 등 다양한 작업프로세스에서 안전수칙 미준수로 인한 사고가 발생하고 있습니다. 안전수칙을 철저히 준수하여 이러한 사고를 예방하는 것이 중요합니다.",
+    "tools_called": [
+      "query_graph"
+    ],
+    "trace": [
+      {
+        "tool": "query_graph",
+        "args": {
+          "cypher": "MATCH (c2:Cause {name:'안전수칙 미준수', level:'L2'})-[:HAS_SUB]->(:Cause {level:'L3'})<-[:CAUSED_BY]-(a:Accident)-[:DURING]->(w:WorkProcess) RETURN w.name AS work_process, count(a) AS cases ORDER BY cases DESC"
+        }
+      }
+    ],
+    "contexts": [
+      "[{\"work_process\": \"설치작업\", \"cases\": 35}, {\"work_process\": \"이동\", \"cases\": 31}, {\"work_process\": \"해체작업\", \"cases\": 25}, {\"work_process\": \"조립작업\", \"cases\": 17}, {\"work_process\": \"정리작업\", \"cases\": 17}, {\"work_process\": \"운반작업\", \"cases\": 16}, {\"work_process\": \"준비작업\", \"cases\": 12}, {\"work_process\": \"굴착작업\", \"cases\": 9}, {\"work_process\": \"타설작업\", \"cases\": 8}, {\"work_process\": \"절단작업\", \"cases\": 7}, {\"work_process\": \"연결작업\", \"cases\": 7}, {\"work_process\": \"정비작업\", \"cases\": 6}, {\"work_process\": \"청소작업\", \"cases\": 5}, {\"work_process\": \"반출작업\", \"cases\": 4}, {\"work_process\": \"형틀 및 목공\", \"cases\": 4}, {\"work_process\": \"상차 및 하역작업\", \"cases\": 4}, {\"work_process\": \"천공작업\", \"cases\": 4}, {\"work_process\": \"보수 및 교체작업\", \"cases\": 3}, {\"work_process\": \"인양작업\", \"cases\": 3}, {\"work_process\": \"장약 및 발파작업\", \"cases\": 2}, {\"work_process\": \"전기작업\", \"cases\": 1}, {\"work_process\": \"마감작업\", \"cases\": 1}, {\"work_process\": \"용접작업\", \"cases\": 1}, {\"work_process\": \"매설작업\", \"cases\": 1}, {\"work_process\": \"쌓기작업\", \"cases\": 1}, {\"work_process\": \"설비작업\", \"cases\": 1}, {\"work_process\": \"적재작업\", \"cases\": 1}, {\"work_process\": \"양중작업\", \"cases\": 1}]"
+    ],
+    "seconds": 3.9
+  },
+  {
+    "id": "ENUM-2",
+    "category": "enumeration_graph",
+    "lang": "en",
+    "question": "In which work processes do accidents related to safety rule violations (안전수칙 미준수) mainly occur?",
+    "expected": {
+      "any_of": [
+        "query_graph",
+        "get_statistics"
+      ],
+      "all_of": []
+    },
+    "reference": "Top processes: 설치작업 35, 이동 31, 해체작업 25, 조립작업 17, 정리작업 17. 안전수칙 미준수 is an L2 cause reached through its L3 sub-causes.",
+    "answer": "[AGENT ERROR] Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o in organization org-yGP1ewhqUbfmPo6ACQR0zGL5 on tokens per min (TPM): Limit 30000, Used 30000, Requested 446. Please try again in 892ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}",
+    "tools_called": [],
+    "trace": [],
+    "contexts": [],
+    "seconds": 3.2
+  },
+  {
+    "id": "ENUM-3",
+    "category": "enumeration_graph",
+    "lang": "ko",
+    "question": "가시설과 관련된 사고에는 어떤 세부 객체들이 있고 각각 몇 건인가요?",
+    "expected": {
+      "any_of": [
+        "query_graph",
+        "get_statistics"
+      ],
+      "all_of": []
+    },
+    "reference": "Sub-objects under 가시설 include 거푸집, 흙막이가시설, 비계 and others, with 거푸집 among the most frequent.",
+    "answer": "[AGENT ERROR] Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o in organization org-yGP1ewhqUbfmPo6ACQR0zGL5 on tokens per min (TPM): Limit 30000, Used 30000, Requested 406. Please try again in 812ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}",
+    "tools_called": [],
+    "trace": [],
+    "contexts": [],
+    "seconds": 2.2
+  },
+  {
+    "id": "ENUM-3",
+    "category": "enumeration_graph",
+    "lang": "en",
+    "question": "What sub-objects are involved in temporary-facility (가시설) accidents, and how many cases each?",
+    "expected": {
+      "any_of": [
+        "query_graph",
+        "get_statistics"
+      ],
+      "all_of": []
+    },
+    "reference": "Sub-objects under 가시설 include 거푸집, 흙막이가시설, 비계 and others, with 거푸집 among the most frequent.",
+    "answer": "[AGENT ERROR] Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o in organization org-yGP1ewhqUbfmPo6ACQR0zGL5 on tokens per min (TPM): Limit 30000, Used 30000, Requested 446. Please try again in 892ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}",
+    "tools_called": [],
+    "trace": [],
+    "contexts": [],
+    "seconds": 3.2
+  },
+  {
+    "id": "NARR-1",
+    "category": "narrative_search",
+    "lang": "ko",
+    "question": "거푸집 해체 중 떨어짐 사고의 재발방지대책은 무엇인가요?",
+    "expected": {
+      "any_of": [],
+      "all_of": [
+        "search_cases"
+      ]
+    },
+    "reference": "Grounded in real cases: measures such as 안전벨트/안전고리 체결 확인, 작업 전 안전교육, 안전발판 및 생명줄 설치, 관리감독자 배치. Must cite TA- case ids, not generic advice.",
+    "answer": "[AGENT ERROR] Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o in organization org-yGP1ewhqUbfmPo6ACQR0zGL5 on tokens per min (TPM): Limit 30000, Used 30000, Requested 1667. Please try again in 3.334s. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}",
+    "tools_called": [
+      "search_cases"
+    ],
+    "trace": [
+      {
+        "tool": "search_cases",
+        "args": {
+          "query_ko": "거푸집 해체 중 떨어짐 사고 재발방지대책"
+        }
+      }
+    ],
+    "contexts": [
+      "[{\"case_id\": \"TA-0051\", \"tunnel_type\": \"도로터널\", \"accident_type\": \"넘어짐\", \"work_process\": \"해체작업\", \"fatalities\": 0, \"text\": \"사고경위: 재해자가\\n1. 4m높이에서 거푸집 해체작업 중 파이프서포트 지지용 비계파이프를 해체 후 작업구간에 방치한 상태에서 아래로 내려오다, 방치된 비계파이프를 밟아 중심을 잃고 넘어짐\\n\\n구체적사고원인: 비계파이프 해체후 방치된 자재를 작업자가 밟아 넘어짐\\n\\n피해내용: 작업자 1인(63세) 경추, 대퇴부 부분골절\\n\\n재발방지대책: 작업자 안전교육 강화조치\\n\\n향후조치계획: 2020.4.11. 준공일까지 사업장 안전교육 강화 및 안전관리 철저\\n\\n사고발생후 조치사항: 부산대 양산병원 후송조치\"}, {\"case_id\": \"TA-0175\", \"tunnel_type\": \"기타\", \"accident_type\": \"떨어짐\", \"work_process\": \"해체작업\", \"fatalities\": 0, \"text\": \"사고경위: 반포천유역 분리터널 현장의 유입부 현장 외부휀스 수평단관파이프를 해체하기위하여 3단 수평단관파이프에 안전고리체결 후 해체하던 중 2단 수평단관파이프에 설치된 빔 클램프가 파단되면서 추락\\n\\n구체적사고원인: 현장 외부 휀스의 수평파이프를 해체하기 위하여 3단 수평 파이프에 안전고리를 체결하고 해체작업을 하던 중 2,3단 수평파이프와 수직철골을 잡아주던 빔 클램프가 파단되면서 추락\\n\\n피해내용: 피해 없음\\n\\n재발방지대책: 작업방법 변경\\n- 상부고소작업을 금지하고 장비를 이용하여 해체물을 바닥에 눕힌 후 지상에서 해체작업 실시\\n\\n향후조치계획: 휀스해체작업의 작업방법 변경에 대한 교육 및 실시확인\\n\\n사고발생후 조치사항: 22.09.22 오후 12시20분경 사고발생 직후 근처 서울이즈정형외과로 이동하여 엑스레이 촬영 결과 이상소견없음\"}, {\"case_id\": \"TA-0272\", \"tunnel_type\": \"철도터널\", \"accident_type\": \"떨어짐\", \"work_process\": \"해체작업\", \"fatalities\": 0, \"text\": \"사고경위: 환기구21 2스판 지하1층 외부벽체 작업발판을 해체하던 중 겹쳐있던 발판을 해체하여 발판과 같이 떨어짐\\n\\n구체적사고원인: 수평대 위에 겹쳐 고정되어 있던 작업발판 반생이를 절단하면서 수평대가 불안전하게 고정되어 있어 같이 떨어짐\\n\\n피해내용: 피해 없음\\n\\n재발방지대책: - 작업발판 설치 상태 확인 및 해체 작업시 관리자 상주\\n- 해체작업시 안전대부착설비는 해체 완료시까지 존치 및 해체 금지\\n- 작업발판 해체 순서에 대한 근로자 안전교육 실시\\n\\n향후조치계획: - 작업발판 설치 상태 확인 및 해체 작업시 관리자 상주\\n- 해체작업시 안전대부착설비는 해체 완료시까지 존치 및 해체 금지\\n- 작업발판 해체 순서에 대한 근로자 안전교육 실시\\n\\n사고발생후 조치사항: 09/04(수) 15:45 : 환기구21 2스판 지하1층 외부벽체 작업발판을 해체하던 중 겹쳐있던 발판을 해체하여 3m 아래로 발판과 같이 떨어짐 16:00 : 지정병원(세란병원) 이동 진료 중 17:20 : 진료결과 우측 늑골 6~8,11 골절 및 미추(꼬리뼈) 골절 판정집으로 귀가(입원, 수술불필요) 18:20 : 현장 복귀하여 동료차를 이용하여 집으로 귀가\"}, {\"case_id\": \"TA-0084\", \"tunnel_type\": \"도로터널\", \"accident_type\": \"물체에 맞음\", \"work_process\": \"해체작업\", \"fatalities\": 0, \"text\": \"사고경위: 양중하여 반출중이던 H빔이 복공상부에 설치된 안전난간을 가격하면서 안전난간이 하부로 떨어져 재해자(오00) 오른팔 가격함\\n\\n구체적사고원인: 반출하던 H빔이 복공상부에 설치된 난간대를 가격하여 안전난간이 하부로 떨어져 바닥에서 튕기면서 재해자(오00) 오른쪽 팔을 가격함\\n\\n피해내용: 안전난간대 파손, 부상자 1명\\n\\n재발방지대책: 복공상부 안전난간 와이어 혹은 로프등으로 고정조치\\n\\n향후조치계획: 중량물 취급작업 계획 수립 및 안전시설물 설치 상태 확인 관리\\n\\n사고발생후 조치사항: 13:30분 사고 발생, 13:32 사고보고, 13:50 구급차현장도착, 14:12 병원도착\"}, {\"case_id\": \"TA-0274\", \"tunnel_type\": \"철도터널\", \"accident_type\": \"찔림\", \"work_process\": \"해체작업\", \"fatalities\": 0, \"text\": \"사고경위: 킨텍스정거장 외부출입구3 작업장에서 거푸집 해체 작업을 위해 거푸집과 연결된 철선(반생)을 절단하는 작업 중, 철선(반생)에 눈을 찔린 사고임\\n\\n구체적사고원인: 보안경 미착용\\n\\n피해내용: 피해 없음\\n\\n재발방지대책: 근로자 절단 작업 시 개인보호구(보안경 등) 착용 실시\\n\\n향후조치계획: 근로자 개인보호구(보안경 등) 착용 관리 철저\\n\\n사고발생후 조치사항: 병원 방문 및 수술 예정\"}]"
+    ],
+    "seconds": 11.0
+  },
+  {
+    "id": "NARR-1",
+    "category": "narrative_search",
+    "lang": "en",
+    "question": "What are the prevention measures for falls during formwork dismantling?",
+    "expected": {
+      "any_of": [],
+      "all_of": [
+        "search_cases"
+      ]
+    },
+    "reference": "Grounded in real cases: measures such as 안전벨트/안전고리 체결 확인, 작업 전 안전교육, 안전발판 및 생명줄 설치, 관리감독자 배치. Must cite TA- case ids, not generic advice.",
+    "answer": "Here are some prevention measures for falls during formwork dismantling, based on real cases:\n\n1. **Management and Supervision**: Assign supervisors to oversee the dismantling process and conduct fall prevention training to raise safety awareness among workers. Ensure that formwork materials are securely fixed before starting work (TA-0187).\n\n2. **Modification of Work Methods**: Avoid high-altitude work by using equipment to lower dismantled materials to the ground for dismantling. This reduces the risk of falls from height (TA-0175).\n\n3. **Safety Equipment and Inspection**: Ensure that safety harnesses and other fall protection equipment remain in place until dismantling is complete. Regularly inspect the installation status of work platforms and ensure they are securely fixed (TA-0272).\n\n4. **Use of Wire Ropes**: Secure formwork with wire ropes to prevent it from falling during dismantling. Conduct safety inspections of chain blocks and replace them with new ones if necessary to maintain tension (TA-0220).\n\n5. **Slip Prevention**: Inspect and enhance slip prevention measures on work platforms and temporary stairs. Conduct training and site inspections to prevent recurrence of falls (TA-0006).\n\nImplementing these measures can significantly reduce the risk of falls during formwork dismantling operations.",
+    "tools_called": [
+      "search_cases"
+    ],
+    "trace": [
+      {
+        "tool": "search_cases",
+        "args": {
+          "query_ko": "거푸집 해체 중 추락 예방 조치는 무엇인가요?",
+          "filter_sql": "accident_type = '떨어짐' AND work_process = '해체작업'"
+        }
+      }
+    ],
+    "contexts": [
+      "[{\"case_id\": \"TA-0187\", \"tunnel_type\": \"도로터널\", \"accident_type\": \"떨어짐\", \"work_process\": \"해체작업\", \"fatalities\": 0, \"text\": \"사고경위: 2023년01월30일 08시30분 태조산터널시점부 터널라이닝 해체 작업 준비하며 통로이동중 고정되어 있지 않은 철망을 밟고 철망과 함께\\n1. 8m아래 지면으로 추락\\n\\n구체적사고원인: 터널라이닝 해체 작업 준비하며 통로이동중 고정되어 있지 않은 철망을 밟고 철망과 함께\\n1. 8m아래 지면으로 추락\\n\\n피해내용: 피해 없음\\n\\n재발방지대책: 관리감독자 배치 및 안전의식 고취 위한 추락방지 교육 실시작업전 거푸집 자재 고정상태 확인숙련공 선별하여 작업 투입\\n\\n향후조치계획: 작업전 추락대비 근로자교육 실시 및 시설물 고정상태 확인\\n\\n사고발생후 조치사항: 사고후 천안우리병원 승용차로 이송하여 검사후 자택인 서울영등포부근 새길병원으로 자가이동하여 입원\"}, {\"case_id\": \"TA-0175\", \"tunnel_type\": \"기타\", \"accident_type\": \"떨어짐\", \"work_process\": \"해체작업\", \"fatalities\": 0, \"text\": \"사고경위: 반포천유역 분리터널 현장의 유입부 현장 외부휀스 수평단관파이프를 해체하기위하여 3단 수평단관파이프에 안전고리체결 후 해체하던 중 2단 수평단관파이프에 설치된 빔 클램프가 파단되면서 추락\\n\\n구체적사고원인: 현장 외부 휀스의 수평파이프를 해체하기 위하여 3단 수평 파이프에 안전고리를 체결하고 해체작업을 하던 중 2,3단 수평파이프와 수직철골을 잡아주던 빔 클램프가 파단되면서 추락\\n\\n피해내용: 피해 없음\\n\\n재발방지대책: 작업방법 변경\\n- 상부고소작업을 금지하고 장비를 이용하여 해체물을 바닥에 눕힌 후 지상에서 해체작업 실시\\n\\n향후조치계획: 휀스해체작업의 작업방법 변경에 대한 교육 및 실시확인\\n\\n사고발생후 조치사항: 22.09.22 오후 12시20분경 사고발생 직후 근처 서울이즈정형외과로 이동하여 엑스레이 촬영 결과 이상소견없음\"}, {\"case_id\": \"TA-0272\", \"tunnel_type\": \"철도터널\", \"accident_type\": \"떨어짐\", \"work_process\": \"해체작업\", \"fatalities\": 0, \"text\": \"사고경위: 환기구21 2스판 지하1층 외부벽체 작업발판을 해체하던 중 겹쳐있던 발판을 해체하여 발판과 같이 떨어짐\\n\\n구체적사고원인: 수평대 위에 겹쳐 고정되어 있던 작업발판 반생이를 절단하면서 수평대가 불안전하게 고정되어 있어 같이 떨어짐\\n\\n피해내용: 피해 없음\\n\\n재발방지대책: - 작업발판 설치 상태 확인 및 해체 작업시 관리자 상주\\n- 해체작업시 안전대부착설비는 해체 완료시까지 존치 및 해체 금지\\n- 작업발판 해체 순서에 대한 근로자 안전교육 실시\\n\\n향후조치계획: - 작업발판 설치 상태 확인 및 해체 작업시 관리자 상주\\n- 해체작업시 안전대부착설비는 해체 완료시까지 존치 및 해체 금지\\n- 작업발판 해체 순서에 대한 근로자 안전교육 실시\\n\\n사고발생후 조치사항: 09/04(수) 15:45 : 환기구21 2스판 지하1층 외부벽체 작업발판을 해체하던 중 겹쳐있던 발판을 해체하여 3m 아래로 발판과 같이 떨어짐 16:00 : 지정병원(세란병원) 이동 진료 중 17:20 : 진료결과 우측 늑골 6~8,11 골절 및 미추(꼬리뼈) 골절 판정집으로 귀가(입원, 수술불필요) 18:20 : 현장 복귀하여 동료차를 이용하여 집으로 귀가\"}, {\"case_id\": \"TA-0220\", \"tunnel_type\": \"철도터널\", \"accident_type\": \"떨어짐\", \"work_process\": \"해체작업\", \"fatalities\": 0, \"text\": \"사고경위: 연신내정거장 주출입수직구(STA 23km508) E/V PIT 내부벽체 강재거푸집(작업발판 일체형)을 잡고 있는 체인블럭이 느슨해지면서 폼이 외부벽체에서 미끄러짐(근로자 E/V 내부벽체 작업발판에 위치 함)\\n\\n구체적사고원인: 수직구 E/V PIT 내부벽체 강재거푸집 해체 작업을 위해 상부 가시설 빔에 체인블럭을 고정한 상태에서 인상 작업을 진행 하던 중 고정되어 있던 체인블럭의 장력이 느슨해지면서 강재폼이 하부로 미끄럼지면서 작업발판내 위치한 근로자가 바닥에 부딪힘\\n\\n피해내용: 피해 없음\\n\\n재발방지대책: 수직구 E/V PIT 내부벽체 강재거푸집 해체 작업시 1차 와이어로프로 고정하여 거푸집이 낙하되지 않도록 하고, 체인블럭의 장력이 감소되지 않도록 사용전 안전검사 및 신품으로 교체하여 작업 실시\\n\\n향후조치계획: 재발방지대책 수립하여 동종재해가 발생되지 않도록 특별안전교육 및 안전점검 실시\\n\\n사고발생후 조치사항: 강재거푸집 해체 작업중지 및 부상자 병원진료\"}, {\"case_id\": \"TA-0006\", \"tunnel_type\": \"철도터널\", \"accident_type\": \"떨어짐\", \"work_process\": \"해체작업\", \"fatalities\": 0, \"text\": \"사고경위: 송정터널 시점부 라이닝 철근대차 상부 작업 완료 후 계단을 내려 오는 중 미끄러져서 추락(1.5M)\\n\\n구체적사고원인: 철근대차 상부 해체 작업 완료 후 계단을 내려 오는 중 미끄러져서 추락\\n\\n피해내용: 피해 없음\\n\\n재발방지대책: 현재 운영중인 작업대차 점검 및 미끄럼 방지 보안\\n\\n향후조치계획: 전근로자 재발방지를 위한 교육 및 현장점검, 추락 발생 위험 공정 중점 관리\\n\\n사고발생후 조치사항: 철근 작업대차 이동통로 및 가설 계단 점검 및 미끄럼 방지 보안, 근로자 재발방지를 위한 교육\"}]"
+    ],
+    "seconds": 14.1
+  },
+  {
+    "id": "NARR-2",
+    "category": "narrative_search",
+    "lang": "ko",
+    "question": "광차에 의한 사고 사례가 있나요? 어떻게 조치했나요?",
+    "expected": {
+      "any_of": [],
+      "all_of": [
+        "search_cases"
+      ]
+    },
+    "reference": "Yes — 2 cases mention 광차. The answer should describe those cases and their 사고발생후 조치사항.",
+    "answer": "[AGENT ERROR] Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o in organization org-yGP1ewhqUbfmPo6ACQR0zGL5 on tokens per min (TPM): Limit 30000, Used 30000, Requested 400. Please try again in 800ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}",
+    "tools_called": [],
+    "trace": [],
+    "contexts": [],
+    "seconds": 2.3
+  },
+  {
+    "id": "NARR-2",
+    "category": "narrative_search",
+    "lang": "en",
+    "question": "Are there any accident cases involving mine cars (광차)? What actions were taken?",
+    "expected": {
+      "any_of": [],
+      "all_of": [
+        "search_cases"
+      ]
+    },
+    "reference": "Yes — 2 cases mention 광차. The answer should describe those cases and their 사고발생후 조치사항.",
+    "answer": "[AGENT ERROR] Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o in organization org-yGP1ewhqUbfmPo6ACQR0zGL5 on tokens per min (TPM): Limit 30000, Used 30000, Requested 432. Please try again in 864ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}",
+    "tools_called": [],
+    "trace": [],
+    "contexts": [],
+    "seconds": 2.9
+  },
+  {
+    "id": "NARR-3",
+    "category": "narrative_search",
+    "lang": "ko",
+    "question": "굴착 중 낙석에 맞은 사고 사례와 이후 조치사항을 알려주세요.",
+    "expected": {
+      "any_of": [],
+      "all_of": [
+        "search_cases"
+      ]
+    },
+    "reference": "Cases involving 부석/낙석/토사 및 암반 during excavation, with post-accident actions (병원 이송, 작업 중지, 부석 제거 등).",
+    "answer": "[AGENT ERROR] Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o in organization org-yGP1ewhqUbfmPo6ACQR0zGL5 on tokens per min (TPM): Limit 30000, Used 30000, Requested 404. Please try again in 808ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}",
+    "tools_called": [],
+    "trace": [],
+    "contexts": [],
+    "seconds": 2.2
+  },
+  {
+    "id": "NARR-3",
+    "category": "narrative_search",
+    "lang": "en",
+    "question": "Show me cases where workers were struck by falling rock during excavation, and what was done afterwards.",
+    "expected": {
+      "any_of": [],
+      "all_of": [
+        "search_cases"
+      ]
+    },
+    "reference": "Cases involving 부석/낙석/토사 및 암반 during excavation, with post-accident actions (병원 이송, 작업 중지, 부석 제거 등).",
+    "answer": "[AGENT ERROR] Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o in organization org-yGP1ewhqUbfmPo6ACQR0zGL5 on tokens per min (TPM): Limit 30000, Used 30000, Requested 443. Please try again in 886ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}",
+    "tools_called": [],
+    "trace": [],
+    "contexts": [],
+    "seconds": 3.0
+  },
+  {
+    "id": "TERM-1",
+    "category": "terminology",
+    "lang": "ko",
+    "question": "띠장이 무엇인가요?",
+    "expected": {
+      "any_of": [],
+      "all_of": [
+        "explain_term"
+      ]
+    },
+    "reference": "띠장 = wale/waler: a horizontal temporary-works member in earth retention systems.",
+    "answer": "띠장은 영어로 \"wale\" 또는 \"waler\"라고 하며, 임시 구조물(temporary works)에서 사용되는 부재입니다. 주로 흙막이 공사에서 흙의 붕괴를 방지하기 위해 사용됩니다.",
+    "tools_called": [
+      "explain_term"
+    ],
+    "trace": [
+      {
+        "tool": "explain_term",
+        "args": {
+          "term": "띠장"
+        }
+      }
+    ],
+    "contexts": [
+      "[{\"ko\": \"띠장\", \"en\": \"wale\", \"aliases\": [\"waler\", \"wale beam\"], \"category\": \"temporary works\"}]"
+    ],
+    "seconds": 1.7
+  },
+  {
+    "id": "TERM-1",
+    "category": "terminology",
+    "lang": "en",
+    "question": "What is a waler in tunnel construction?",
+    "expected": {
+      "any_of": [],
+      "all_of": [
+        "explain_term"
+      ]
+    },
+    "reference": "띠장 = wale/waler: a horizontal temporary-works member in earth retention systems.",
+    "answer": "In tunnel construction, a \"waler\" (also known as a \"wale\" or \"wale beam\") is referred to as \"띠장\" in Korean. It is categorized under temporary works and is used to support structures during construction.",
+    "tools_called": [
+      "explain_term"
+    ],
+    "trace": [
+      {
+        "tool": "explain_term",
+        "args": {
+          "term": "waler"
+        }
+      }
+    ],
+    "contexts": [
+      "[{\"ko\": \"띠장\", \"en\": \"wale\", \"aliases\": [\"waler\", \"wale beam\"], \"category\": \"temporary works\"}]"
+    ],
+    "seconds": 3.4
+  },
+  {
+    "id": "TERM-2",
+    "category": "terminology",
+    "lang": "ko",
+    "question": "숏크리트가 영어로 무엇이고 어떤 용도인가요?",
+    "expected": {
+      "any_of": [],
+      "all_of": [
+        "explain_term"
+      ]
+    },
+    "reference": "숏크리트 = shotcrete (sprayed concrete), used as tunnel support.",
+    "answer": "[AGENT ERROR] Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o in organization org-yGP1ewhqUbfmPo6ACQR0zGL5 on tokens per min (TPM): Limit 30000, Used 30000, Requested 398. Please try again in 796ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}",
+    "tools_called": [],
+    "trace": [],
+    "contexts": [],
+    "seconds": 2.2
+  },
+  {
+    "id": "TERM-2",
+    "category": "terminology",
+    "lang": "en",
+    "question": "What is 숏크리트 called in English and what is it used for?",
+    "expected": {
+      "any_of": [],
+      "all_of": [
+        "explain_term"
+      ]
+    },
+    "reference": "숏크리트 = shotcrete (sprayed concrete), used as tunnel support.",
+    "answer": "[AGENT ERROR] Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o in organization org-yGP1ewhqUbfmPo6ACQR0zGL5 on tokens per min (TPM): Limit 30000, Used 30000, Requested 438. Please try again in 876ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}",
+    "tools_called": [],
+    "trace": [],
+    "contexts": [],
+    "seconds": 3.0
+  },
+  {
+    "id": "COMP-1",
+    "category": "composite",
+    "lang": "ko",
+    "question": "사망사고가 발생한 사례들의 공통점과 재발방지대책을 알려주세요.",
+    "expected": {
+      "any_of": [
+        "get_statistics",
+        "query_graph"
+      ],
+      "all_of": [
+        "search_cases"
+      ]
+    },
+    "reference": "18 deaths total. The answer should identify patterns (e.g. 물체에 맞음 and 떨어짐 dominate) AND cite specific fatal cases with their 재발방지대책.",
+    "answer": "[AGENT ERROR] Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o in organization org-yGP1ewhqUbfmPo6ACQR0zGL5 on tokens per min (TPM): Limit 30000, Used 30000, Requested 2072. Please try again in 4.144s. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}",
+    "tools_called": [
+      "query_graph",
+      "search_cases"
+    ],
+    "trace": [
+      {
+        "tool": "query_graph",
+        "args": {
+          "cypher": "MATCH (a:Accident)-[:CAUSED_BY]->(c3:Cause {level:'L3'})<-[:HAS_SUB]-(c2:Cause)<-[:HAS_SUB]-(c1:Cause) WHERE a.fatalities > 0 RETURN a.case_id, c1.name, c2.name, c3.name"
+        }
+      },
+      {
+        "tool": "search_cases",
+        "args": {
+          "query_ko": "사망사고 사례",
+          "filter_sql": "fatalities > 0",
+          "k": 5
+        }
+      }
+    ],
+    "contexts": [
+      "[{\"a.case_id\": \"TA-0168\", \"c1.name\": \"시공오류\", \"c2.name\": \"안전수칙 미준수\", \"c3.name\": \"작업자의 불안전한 행동\"}, {\"a.case_id\": \"TA-0214\", \"c1.name\": \"시공오류\", \"c2.name\": \"안전수칙 미준수\", \"c3.name\": \"작업자의 불안전한 행동\"}, {\"a.case_id\": \"TA-0283\", \"c1.name\": \"시공오류\", \"c2.name\": \"안전수칙 미준수\", \"c3.name\": \"작업자의 불안전한 행동\"}, {\"a.case_id\": \"TA-0015\", \"c1.name\": \"시공오류\", \"c2.name\": \"안전수칙 미준수\", \"c3.name\": \"작업자 통제 미흡\"}, {\"a.case_id\": \"TA-0279\", \"c1.name\": \"시공오류\", \"c2.name\": \"안전수칙 미준수\", \"c3.name\": \"작업자 통제 미흡\"}, {\"a.case_id\": \"TA-0008\", \"c1.name\": \"시공오류\", \"c2.name\": \"기계장비관리 미흡\", \"c3.name\": \"운전자 자격관리 미흡\"}, {\"a.case_id\": \"TA-0013\", \"c1.name\": \"시공오류\", \"c2.name\": \"기계장비관리 미흡\", \"c3.name\": \"운전자 자격관리 미흡\"}, {\"a.case_id\": \"TA-0018\", \"c1.name\": \"시공오류\", \"c2.name\": \"안전수칙 미준수\", \"c3.name\": \"작업자 부주의\"}, {\"a.case_id\": \"TA-0112\", \"c1.name\": \"시공오류\", \"c2.name\": \"안전수칙 미준수\", \"c3.name\": \"작업자 부주의\"}, {\"a.case_id\": \"TA-0224\", \"c1.name\": \"시공오류\", \"c2.name\": \"안전수칙 미준수\", \"c3.name\": \"작업자 부주의\"}, {\"a.case_id\": \"TA-0276\", \"c1.name\": \"시공오류\", \"c2.name\": \"안전수칙 미준수\", \"c3.name\": \"작업자 부주의\"}, {\"a.case_id\": \"TA-0039\", \"c1.name\": \"설계오류\", \"c2.name\": \"사전조사 미흡\", \"c3.name\": \"지반조사 미흡\"}, {\"a.case_id\": \"TA-0119\", \"c1.name\": \"시공오류\", \"c2.name\": \"시공불량\", \"c3.name\": \"시공품질 미확보\"}, {\"a.case_id\": \"TA-0151\", \"c1.name\": \"시공오류\", \"c2.name\": \"시공불량\", \"c3.name\": \"시공품질 미확보\"}, {\"a.case_id\": \"TA-0156\", \"c1.name\": \"시공오류\", \"c2.name\": \"사전검토 미흡\", \"c3.name\": \"사전 설계도서검토 미흡\"}, {\"a.case_id\": \"TA-0055\", \"c1.name\": \"설계오류\", \"c2.name\": \"구조검토 미흡\", \"c3.name\": \"구조계산 오류\"}, {\"a.case_id\": \"TA-0060\", \"c1.name\": \"시공오류\", \"c2.name\": \"사전검토 미흡\", \"c3.name\": \"안전관리계획 수립 미흡\"}, {\"a.case_id\": \"TA-0288\", \"c1.name\": \"시공오류\", \"c2.name\": \"기계장비관리 미흡\", \"c3.name\": \"부적정 기계장비 사용 통제 미흡\"}]",
+      "[{\"case_id\": \"TA-0279\", \"tunnel_type\": \"지하차도\", \"accident_type\": \"깔림\", \"work_process\": \"인양작업\", \"fatalities\": 1, \"text\": \"사고경위: 철근대차 자재 하역 작업 중\\n\\n구체적사고원인: 위험장소 출입 통제 미흡\\n\\n피해내용: 물적 피해 없음\\n\\n재발방지대책: 위험작업반경 내 근로자 출입 통제 철저\\n\\n향후조치계획: 위험작업반경 내 근로자 출입통제 철저히 하겠습니다.\\n\\n사고발생후 조치사항: 07:50 사고 발생 직후 119 신고 / 07:50 ~ 심폐소생술 및 인공호흡 실시 / 08:20 119 도착 후 재해자 후송\"}, {\"case_id\": \"TA-0015\", \"tunnel_type\": \"기타\", \"accident_type\": \"끼임\", \"work_process\": \"연결작업\", \"fatalities\": 1, \"text\": \"사고경위: 터널공사 중 광차와 광차를 연결하기 위해 핀 고정 작업 중, 작업자 부주의로 광차 인양 돌출물에 머리가 협착되어 사망사고 발생\\n\\n구체적사고원인: 버력을 운반하는 광차와 광차 연결 작업중 신호관리가 미흡하여 근로자의 머리가 광차와 광차 사이에 협착되어 사망한 사고\\n\\n피해내용: 물적 피해 없음\\n\\n재발방지대책: 기관차 운전시 신호 업무 철저, 연결잭 확장\\n\\n향후조치계획: 유가족 입국 및 장례절차 등 보상 협의 진행, 사고업체 행정조치\\n\\n사고발생후 조치사항: 응급후송 및\"}, {\"case_id\": \"TA-0283\", \"tunnel_type\": \"철도터널\", \"accident_type\": \"깔림\", \"work_process\": \"절단작업\", \"fatalities\": 1, \"text\": \"사고경위: 2024녀 11월 9일 (토) 08:40분경 킨텍스정거장 대합실 슬라브 상부서 하수박스 받침 보호공 작업을 위해, 매달기 된 지장물(전력관 케이블) 받침 철물(앵글) 제거 중 매달기 된 지장물이 떨어지며 깔리는 사고 후 치료중 2024년 12월 12일 (목) 09:12분 뇌사판정위원회 뇌사 판정 (뇌사 통보시간 14:10)\\n\\n구체적사고원인: 지장물 받침 해체 작업 시 위험요소 안전조치 미흡 (계획에 없던 임의작업)\\n\\n피해내용: 피해 없음\\n\\n재발방지대책: 임의작업 금지 및 작업시 안전수칙 교육 실시\\n\\n향후조치계획: 교육실시\\n\\n사고발생후 조치사항: [11/9(토) 08:40 사고발생, 09:00 병원이송, 12/12(목) 09:12 뇌사판정]\"}, {\"case_id\": \"TA-0060\", \"tunnel_type\": \"도로터널\", \"accident_type\": \"물체에 맞음\", \"work_process\": \"운반작업\", \"fatalities\": 1, \"text\": \"사고경위: 지하차도 벽체 철근작업을 위해 하이드로 크레인을 이용한 철근 인양을 위한 준비작업 중 철근의 낙하로 근로자를 타격, 사망사고 발생\\n\\n구체적사고원인: 철근다발 인양 전 양단부에 슬링벨트 체결을 위해 해당자재를 일시적으로 인상하였으나, 철근을 임시고정하고 있던 벨트에서 철근다발이 이탈하여 근로자를 타격함\\n\\n피해내용: 근로자 1명 사망, 물적피해는 없음\\n\\n재발방지대책: 철근양중작업시 올바른 벨트체결방법에 대한 교육 철저, 무리하게 인양작업 진행하지 않도록 교육강화\\n\\n향후조치계획: 고용노동부 처분조치 완료 및 재발방지조치계획 승인 후 공사재개예정\\n\\n사고발생후 조치사항: 현장작업중지, 경찰, 고용노동부 사고원인 조사중\"}, {\"case_id\": \"TA-0055\", \"tunnel_type\": \"도로터널\", \"accident_type\": \"물체에 맞음\", \"work_process\": \"굴착작업\", \"fatalities\": 1, \"text\": \"사고경위: 2020년 4월 8일(수) 12시 05분경 OO터널 NATM 굴착공사 중 천단부 암반에서 삼각형 모양의 쐐기파괴가 발생하여 암석이 작업 중이던 굴삭기 운전석에 떨어지는 사고발생\\n\\n구체적사고원인: 천단부 암반에서 락볼트 지지력(14t)을 초과한 삼각형 모양의 쐐기파괴(약 33t)가 발생\\n\\n피해내용: 장비 운전원 사망 및 굴삭기 파손\\n\\n재발방지대책: 2차 사고에 대비하여 터널구간 작업 중지 및 안전점검 실시 후 터널보강 작업 시향\\n\\n향후조치계획: 2차 사고 대비하여 터널 전면 작업중지 및 안전점검 실시 후 터널 보강작업 시행 예정\\n\\n사고발생후 조치사항: 119구급대 출동 및 구조 후 병원 후송\"}]"
+    ],
+    "seconds": 17.4
+  },
+  {
+    "id": "COMP-1",
+    "category": "composite",
+    "lang": "en",
+    "question": "What do the fatal accident cases have in common, and what are their prevention measures?",
+    "expected": {
+      "any_of": [
+        "get_statistics",
+        "query_graph"
+      ],
+      "all_of": [
+        "search_cases"
+      ]
+    },
+    "reference": "18 deaths total. The answer should identify patterns (e.g. 물체에 맞음 and 떨어짐 dominate) AND cite specific fatal cases with their 재발방지대책.",
+    "answer": "[AGENT ERROR] Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o in organization org-yGP1ewhqUbfmPo6ACQR0zGL5 on tokens per min (TPM): Limit 30000, Used 30000, Requested 438. Please try again in 876ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}",
+    "tools_called": [],
+    "trace": [],
+    "contexts": [],
+    "seconds": 3.3
+  },
+  {
+    "id": "COMP-2",
+    "category": "composite",
+    "lang": "ko",
+    "question": "도로터널에서 가장 흔한 사고 유형과 그 예방책은 무엇인가요?",
+    "expected": {
+      "any_of": [
+        "get_statistics",
+        "query_graph"
+      ],
+      "all_of": [
+        "search_cases"
+      ]
+    },
+    "reference": "물체에 맞음 (38 cases in 도로터널) is most common; prevention drawn from real case 재발방지대책.",
+    "answer": "[AGENT ERROR] Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o in organization org-yGP1ewhqUbfmPo6ACQR0zGL5 on tokens per min (TPM): Limit 30000, Used 30000, Requested 403. Please try again in 806ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}",
+    "tools_called": [],
+    "trace": [],
+    "contexts": [],
+    "seconds": 2.2
+  },
+  {
+    "id": "COMP-2",
+    "category": "composite",
+    "lang": "en",
+    "question": "What is the most common accident type in road tunnels, and how can it be prevented?",
+    "expected": {
+      "any_of": [
+        "get_statistics",
+        "query_graph"
+      ],
+      "all_of": [
+        "search_cases"
+      ]
+    },
+    "reference": "물체에 맞음 (38 cases in 도로터널) is most common; prevention drawn from real case 재발방지대책.",
+    "answer": "[AGENT ERROR] Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o in organization org-yGP1ewhqUbfmPo6ACQR0zGL5 on tokens per min (TPM): Limit 30000, Used 30000, Requested 456. Please try again in 912ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}",
+    "tools_called": [
+      "get_statistics"
+    ],
+    "trace": [
+      {
+        "tool": "get_statistics",
+        "args": {
+          "sql": "SELECT accident_type, COUNT(*) as count FROM accidents WHERE tunnel_type = '도로터널' GROUP BY accident_type ORDER BY count DESC LIMIT 1;"
+        }
+      }
+    ],
+    "contexts": [
+      "[{\"accident_type\": \"물체에 맞음\", \"count\": 38}]"
+    ],
+    "seconds": 4.1
+  },
+  {
+    "id": "COMP-3",
+    "category": "composite",
+    "lang": "ko",
+    "question": "지하차도가 정말 가장 위험한 터널 유형인가요? 근거를 들어 설명해 주세요.",
+    "expected": {
+      "any_of": [
+        "get_statistics"
+      ],
+      "all_of": []
+    },
+    "reference": "Nuanced: 지하차도 has only 21 cases but 3 deaths — the highest fatality RATE (~14.3%), while 도로터널 has the most cases (124). A good answer computes the rate, not just raw counts.",
+    "answer": "지하차도가 가장 위험한 터널 유형이라고 단정하기는 어렵습니다. 사고 데이터에 따르면, 지하차도에서 발생한 사고는 총 21건이며, 이로 인한 사망자는 3명입니다. 반면, 도로터널과 철도터널에서는 각각 124건과 114건의 사고가 발생했으며, 사망자는 각각 5명입니다. \n\n따라서, 사고 건수나 사망자 수로 볼 때 지하차도가 특별히 더 위험하다고 보기는 어렵습니다. 다른 터널 유형에서도 유사한 수준의 사망자가 발생하고 있으며, 사고 건수는 오히려 도로터널과 철도터널에서 더 많습니다. \n\n이러한 통계를 바탕으로, 특정 터널 유형이 특별히 더 위험하다고 결론짓기보다는, 각 터널 유형에 맞는 안전 대책을 마련하는 것이 중요합니다.",
+    "tools_called": [
+      "get_statistics"
+    ],
+    "trace": [
+      {
+        "tool": "get_statistics",
+        "args": {
+          "sql": "SELECT tunnel_type, COUNT(*) as accident_count, SUM(fatalities) as total_fatalities FROM accidents GROUP BY tunnel_type ORDER BY total_fatalities DESC"
+        }
+      }
+    ],
+    "contexts": [
+      "[{\"tunnel_type\": \"기타\", \"accident_count\": 51, \"total_fatalities\": 5}, {\"tunnel_type\": \"도로터널\", \"accident_count\": 124, \"total_fatalities\": 5}, {\"tunnel_type\": \"철도터널\", \"accident_count\": 114, \"total_fatalities\": 5}, {\"tunnel_type\": \"지하차도\", \"accident_count\": 21, \"total_fatalities\": 3}]"
+    ],
+    "seconds": 7.4
+  },
+  {
+    "id": "COMP-3",
+    "category": "composite",
+    "lang": "en",
+    "question": "Is the underpass (지하차도) really the most dangerous tunnel type? Explain with evidence.",
+    "expected": {
+      "any_of": [
+        "get_statistics"
+      ],
+      "all_of": []
+    },
+    "reference": "Nuanced: 지하차도 has only 21 cases but 3 deaths — the highest fatality RATE (~14.3%), while 도로터널 has the most cases (124). A good answer computes the rate, not just raw counts.",
+    "answer": "[AGENT ERROR] Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o in organization org-yGP1ewhqUbfmPo6ACQR0zGL5 on tokens per min (TPM): Limit 30000, Used 30000, Requested 505. Please try again in 1.009s. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}",
+    "tools_called": [
+      "get_statistics"
+    ],
+    "trace": [
+      {
+        "tool": "get_statistics",
+        "args": {
+          "sql": "SELECT tunnel_type, COUNT(*) as count, SUM(fatalities) as fatalities FROM accidents GROUP BY tunnel_type ORDER BY fatalities DESC"
+        }
+      }
+    ],
+    "contexts": [
+      "[{\"tunnel_type\": \"기타\", \"count\": 51, \"fatalities\": 5}, {\"tunnel_type\": \"도로터널\", \"count\": 124, \"fatalities\": 5}, {\"tunnel_type\": \"철도터널\", \"count\": 114, \"fatalities\": 5}, {\"tunnel_type\": \"지하차도\", \"count\": 21, \"fatalities\": 3}]"
+    ],
+    "seconds": 4.1
+  },
+  {
+    "id": "COMP-4",
+    "category": "composite",
+    "lang": "ko",
+    "question": "굴착작업 사고의 주요 원인 경로와 대표적인 사례를 알려주세요.",
+    "expected": {
+      "any_of": [
+        "query_graph",
+        "get_statistics"
+      ],
+      "all_of": [
+        "search_cases"
+      ]
+    },
+    "reference": "Top cause during 굴착작업: 작업자 부주의 (9 cases). The answer should show the cause hierarchy and cite representative TA- cases.",
+    "answer": "[AGENT ERROR] Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o in organization org-yGP1ewhqUbfmPo6ACQR0zGL5 on tokens per min (TPM): Limit 30000, Used 30000, Requested 404. Please try again in 808ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}",
+    "tools_called": [],
+    "trace": [],
+    "contexts": [],
+    "seconds": 2.2
+  },
+  {
+    "id": "COMP-4",
+    "category": "composite",
+    "lang": "en",
+    "question": "What are the main cause paths for excavation-work accidents, and what are representative cases?",
+    "expected": {
+      "any_of": [
+        "query_graph",
+        "get_statistics"
+      ],
+      "all_of": [
+        "search_cases"
+      ]
+    },
+    "reference": "Top cause during 굴착작업: 작업자 부주의 (9 cases). The answer should show the cause hierarchy and cite representative TA- cases.",
+    "answer": "[AGENT ERROR] Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o in organization org-yGP1ewhqUbfmPo6ACQR0zGL5 on tokens per min (TPM): Limit 30000, Used 30000, Requested 443. Please try again in 886ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}",
+    "tools_called": [],
+    "trace": [],
+    "contexts": [],
+    "seconds": 3.1
+  }
+]

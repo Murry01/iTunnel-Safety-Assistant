@@ -1,0 +1,309 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Theme tokens. Every color in tailwind.config.js resolves to one of these
+   variables, so toggling the `.light` class on <html> (see App.jsx) repaints
+   the whole app without touching any component — they all reference tokens
+   by name (bg-ink-900, text-fog-300, ...), never raw color values. Only
+   CausalGraph.jsx/ChartView.jsx (vis-network/recharts chrome painted to
+   canvas/inline-SVG, outside the CSS cascade) need an explicit theme prop
+   instead — see their own files. */
+:root {
+  --ink-950: oklch(13% 0.008 250);
+  --ink-900: oklch(15% 0.008 250);
+  --ink-850: oklch(17% 0.008 250);
+  --ink-800: oklch(19% 0.01 250);
+  --ink-750: oklch(20% 0.01 250);
+  --ink-700: oklch(23% 0.01 250);
+  --ink-650: oklch(26% 0.01 250);
+  --ink-600: oklch(28% 0.01 250);
+  --ink-500: oklch(30% 0.01 250);
+  --ink-400: oklch(35% 0.01 250);
+
+  --fog-50: oklch(96% 0.004 250);
+  --fog-100: oklch(93% 0.01 250);
+  --fog-200: oklch(90% 0.005 250);
+  --fog-300: oklch(85% 0.01 250);
+  --fog-350: oklch(80% 0.01 250);
+  --fog-400: oklch(72% 0.01 250);
+  --fog-500: oklch(65% 0.01 250);
+  --fog-600: oklch(58% 0.01 250);
+  --fog-700: oklch(52% 0.01 250);
+  --fog-800: oklch(45% 0.01 250);
+
+  --accent-color: oklch(75% 0.13 200);
+  --accent-bright: oklch(80% 0.13 200);
+  --accent-deep: oklch(22% 0.02 200);
+  --accent-wash: oklch(24% 0.03 200 / 0.5);
+  --accent-washHover: oklch(26% 0.03 200 / 0.6);
+  --accent-bubble: oklch(27% 0.03 200 / 0.55);
+  --accent-tagText: oklch(85% 0.08 200);
+  --accent-tagBg: oklch(28% 0.05 200 / 0.35);
+
+  --risk-text: oklch(88% 0.1 55);
+  --risk-icon: oklch(80% 0.14 55);
+  --risk-bg: oklch(28% 0.06 55 / 0.35);
+  --risk-dot: oklch(70% 0.16 45);
+
+  --danger-color: oklch(72% 0.14 30);
+
+  --scrollbar-thumb: oklch(35% 0.01 250);
+  --scrollbar-thumb-hover: oklch(42% 0.01 250);
+
+  /* markdown rendering inside assistant messages (.md below) */
+  --md-text: oklch(90% 0.005 250);
+  --md-heading: oklch(94% 0.005 250);
+  --md-link: oklch(78% 0.11 200);
+  --md-code-bg: oklch(22% 0.01 250);
+  --md-code-border: oklch(28% 0.01 250);
+  --md-pre-bg: oklch(12% 0.008 250);
+  --md-pre-border: oklch(26% 0.01 250);
+  --md-quote-border: oklch(35% 0.05 200);
+  --md-quote-text: oklch(75% 0.01 250);
+  --md-table-border: oklch(28% 0.01 250);
+  --md-th-bg: oklch(19% 0.01 250);
+}
+
+:root.light {
+  --ink-950: oklch(96% 0.006 250);
+  --ink-900: oklch(99% 0.003 250);
+  --ink-850: oklch(94% 0.006 250);
+  --ink-800: oklch(92% 0.007 250);
+  --ink-750: oklch(90% 0.007 250);
+  --ink-700: oklch(87% 0.008 250);
+  --ink-650: oklch(84% 0.008 250);
+  --ink-600: oklch(80% 0.008 250);
+  --ink-500: oklch(74% 0.008 250);
+  --ink-400: oklch(68% 0.008 250);
+
+  --fog-50: oklch(14% 0.006 250);
+  --fog-100: oklch(20% 0.008 250);
+  --fog-200: oklch(26% 0.008 250);
+  --fog-300: oklch(34% 0.008 250);
+  --fog-350: oklch(40% 0.008 250);
+  --fog-400: oklch(48% 0.008 250);
+  --fog-500: oklch(56% 0.008 250);
+  --fog-600: oklch(63% 0.008 250);
+  --fog-700: oklch(69% 0.008 250);
+  --fog-800: oklch(75% 0.008 250);
+
+  --accent-color: oklch(55% 0.14 200);
+  --accent-bright: oklch(48% 0.14 200);
+  --accent-deep: oklch(90% 0.04 200);
+  --accent-wash: oklch(90% 0.06 200 / 0.6);
+  --accent-washHover: oklch(86% 0.07 200 / 0.7);
+  --accent-bubble: oklch(88% 0.06 200 / 0.55);
+  --accent-tagText: oklch(40% 0.1 200);
+  --accent-tagBg: oklch(92% 0.06 200 / 0.5);
+
+  --risk-text: oklch(45% 0.13 45);
+  --risk-icon: oklch(50% 0.15 45);
+  --risk-bg: oklch(93% 0.08 55 / 0.6);
+  --risk-dot: oklch(55% 0.18 45);
+
+  --danger-color: oklch(50% 0.16 30);
+
+  --scrollbar-thumb: oklch(68% 0.008 250);
+  --scrollbar-thumb-hover: oklch(58% 0.008 250);
+
+  --md-text: oklch(22% 0.006 250);
+  --md-heading: oklch(12% 0.006 250);
+  --md-link: oklch(45% 0.12 200);
+  --md-code-bg: oklch(93% 0.008 250);
+  --md-code-border: oklch(84% 0.008 250);
+  --md-pre-bg: oklch(96% 0.006 250);
+  --md-pre-border: oklch(82% 0.008 250);
+  --md-quote-border: oklch(70% 0.08 200);
+  --md-quote-text: oklch(40% 0.008 250);
+  --md-table-border: oklch(82% 0.008 250);
+  --md-th-bg: oklch(91% 0.007 250);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--ink-900);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+}
+
+/* Markdown rendering inside assistant messages */
+.md {
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--md-text);
+}
+.md > *:first-child {
+  margin-top: 0;
+}
+.md > *:last-child {
+  margin-bottom: 0;
+}
+.md p {
+  margin: 0 0 0.9em;
+}
+.md h1,
+.md h2,
+.md h3,
+.md h4 {
+  color: var(--md-heading);
+  font-weight: 600;
+  margin: 1.2em 0 0.5em;
+  line-height: 1.35;
+}
+.md h1 {
+  font-size: 1.25em;
+}
+.md h2 {
+  font-size: 1.15em;
+}
+.md h3 {
+  font-size: 1.05em;
+}
+.md ul,
+.md ol {
+  margin: 0 0 0.9em;
+  padding-left: 1.4em;
+}
+.md li {
+  margin: 0.25em 0;
+}
+.md strong {
+  color: var(--md-heading);
+  font-weight: 600;
+}
+.md a {
+  color: var(--md-link);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.md code {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.86em;
+  background: var(--md-code-bg);
+  border: 1px solid var(--md-code-border);
+  border-radius: 5px;
+  padding: 1px 5px;
+}
+.md pre {
+  background: var(--md-pre-bg);
+  border: 1px solid var(--md-pre-border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  overflow-x: auto;
+  margin: 0 0 0.9em;
+}
+.md pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.md blockquote {
+  border-left: 3px solid var(--md-quote-border);
+  margin: 0 0 0.9em;
+  padding: 2px 0 2px 14px;
+  color: var(--md-quote-text);
+}
+.md table {
+  border-collapse: collapse;
+  margin: 0 0 0.9em;
+  font-size: 13px;
+}
+.md th,
+.md td {
+  border: 1px solid var(--md-table-border);
+  padding: 6px 10px;
+  text-align: left;
+}
+.md th {
+  background: var(--md-th-bg);
+  font-weight: 600;
+}
+
+/* Prevention Report printing.
+   The on-screen modal uses position:absolute + a viewport-height box with
+   internal scrolling, which is fine to look at but gets silently clipped to
+   a single page when printed (the browser only paginates normal document
+   flow — content inside an overflow:auto box just gets cut, not flowed onto
+   page 2+). These rules strip that positioning for print only, and force
+   readable dark-on-white colors unconditionally (independent of the screen
+   theme, light or dark) regardless of the browser's own "print background
+   graphics" setting (off by default in most browsers, which would otherwise
+   leave light gray text nearly invisible on white paper). */
+@media print {
+  @page {
+    margin: 16mm;
+  }
+
+  .report-print-root {
+    position: static !important;
+    display: block !important;
+    inset: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    background: #fff !important;
+  }
+  .report-print-card {
+    position: static !important;
+    display: block !important;
+    height: auto !important;
+    width: auto !important;
+    max-width: none !important;
+    overflow: visible !important;
+    background: #fff !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+  .report-print-body {
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .report-print-area,
+  .report-print-area * {
+    color: #1a1a1a !important;
+    background: transparent !important;
+    border-color: #bbb !important;
+    box-shadow: none !important;
+  }
+  .report-print-area h1,
+  .report-print-area h2,
+  .report-print-area h3 {
+    color: #000 !important;
+  }
+  .report-print-area table,
+  .report-print-area tr,
+  .report-print-area .print-avoid-break {
+    break-inside: avoid;
+  }
+}

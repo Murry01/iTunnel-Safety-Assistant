@@ -1,0 +1,100 @@
+[
+  {
+    "id": "AGG-1",
+    "category": "aggregation",
+    "lang": "ko",
+    "question": "터널 종류별 사고 건수를 알려주세요.",
+    "reference": "도로터널 124, 철도터널 114, 기타 51, 지하차도 21 (total 310).",
+    "expected": {
+      "any_of": [
+        "get_statistics",
+        "query_graph"
+      ],
+      "all_of": []
+    },
+    "citation_required": null,
+    "attempt": 1,
+    "recorded_at": "2026-09-19T13:30:58.595313+00:00",
+    "answer": "터널 종류별 사고 건수는 다음과 같습니다:\n\n- 도로터널: 124건\n- 철도터널: 114건\n- 기타: 51건\n- 지하차도: 21건\n\n이 통계는 각 터널 유형에서 발생한 사고의 총 건수를 나타냅니다.",
+    "status": "completed",
+    "error": null,
+    "tools_called": [
+      "get_statistics"
+    ],
+    "trace": [
+      {
+        "tool": "get_statistics",
+        "args": {
+          "sql": "SELECT tunnel_type, COUNT(*) as count FROM accidents GROUP BY tunnel_type"
+        },
+        "result": [
+          {
+            "tunnel_type": "기타",
+            "count": 51
+          },
+          {
+            "tunnel_type": "도로터널",
+            "count": 124
+          },
+          {
+            "tunnel_type": "지하차도",
+            "count": 21
+          },
+          {
+            "tunnel_type": "철도터널",
+            "count": 114
+          }
+        ],
+        "model_content": "[{\"tunnel_type\": \"기타\", \"count\": 51}, {\"tunnel_type\": \"도로터널\", \"count\": 124}, {\"tunnel_type\": \"지하차도\", \"count\": 21}, {\"tunnel_type\": \"철도터널\", \"count\": 114}]",
+        "round": 1
+      }
+    ],
+    "contexts": [
+      "[{\"tunnel_type\": \"기타\", \"count\": 51}, {\"tunnel_type\": \"도로터널\", \"count\": 124}, {\"tunnel_type\": \"지하차도\", \"count\": 21}, {\"tunnel_type\": \"철도터널\", \"count\": 114}]"
+    ],
+    "context_capture": "exact_model_tool_messages",
+    "completion": {
+      "reason": "final_answer",
+      "rounds": 2
+    },
+    "usage": [
+      {
+        "model": "gpt-4o-2024-08-06",
+        "completion_tokens": 27,
+        "prompt_tokens": 3151,
+        "total_tokens": 3178,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cache_write_tokens": null,
+          "cached_tokens": 0
+        }
+      },
+      {
+        "model": "gpt-4o-2024-08-06",
+        "completion_tokens": 70,
+        "prompt_tokens": 3252,
+        "total_tokens": 3322,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cache_write_tokens": null,
+          "cached_tokens": 3072
+        }
+      }
+    ],
+    "warnings": [],
+    "tool_error_count": 0,
+    "seconds": 4.779
+  }
+]

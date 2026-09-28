@@ -1,0 +1,5 @@
+# Optional evaluation dependencies; the application keeps its custom orchestrator.
+ragas==0.4.3
+datasets==5.0.0
+# RAGAS 0.4.3 imports ChatVertexAI, absent from community 0.4.2.
+langchain-community==0.4.1

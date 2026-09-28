@@ -1,0 +1,76 @@
+{
+  "created_at": "2026-09-19T13:32:33.669423+00:00",
+  "input_sha256": "aaf43e05442749fa3fc1922cfaf8faabd9f021a92579127b62892d087f5af8df",
+  "database_sha256": "d329bd07de6e626088a661cb4a42e6c10ec9c8149485860dc98c0e88b735ea7c",
+  "attempt_records_in_input": 1,
+  "all_languages": {
+    "runs": 1,
+    "completed": 1,
+    "completion_rate": 1.0,
+    "routing_accuracy_on_completed": 1.0,
+    "completion_and_routing_rate": 1.0,
+    "citation_presence_when_required": null,
+    "mean_citation_validity_on_citing_answers": null,
+    "completed_answers_with_citations": 0,
+    "completed_answers_requiring_citations": 0,
+    "mean_completed_latency_seconds": 4.779,
+    "legacy_context_records": 0
+  },
+  "by_language": {
+    "ko": {
+      "runs": 1,
+      "completed": 1,
+      "completion_rate": 1.0,
+      "routing_accuracy_on_completed": 1.0,
+      "completion_and_routing_rate": 1.0,
+      "citation_presence_when_required": null,
+      "mean_citation_validity_on_citing_answers": null,
+      "completed_answers_with_citations": 0,
+      "completed_answers_requiring_citations": 0,
+      "mean_completed_latency_seconds": 4.779,
+      "legacy_context_records": 0
+    }
+  },
+  "by_category": {
+    "aggregation": {
+      "runs": 1,
+      "completed": 1,
+      "completion_rate": 1.0,
+      "routing_accuracy_on_completed": 1.0,
+      "completion_and_routing_rate": 1.0,
+      "citation_presence_when_required": null,
+      "mean_citation_validity_on_citing_answers": null,
+      "completed_answers_with_citations": 0,
+      "completed_answers_requiring_citations": 0,
+      "mean_completed_latency_seconds": 4.779,
+      "legacy_context_records": 0
+    }
+  },
+  "notes": [
+    "Completed means a final nonempty answer, not a correct answer.",
+    "Legacy records cannot establish final-answer completion or exact model evidence.",
+    "Routing allows alternatives in the benchmark; it does not establish graph necessity.",
+    "Citation validity checks identifiers, not whether evidence supports a claim.",
+    "Report completion alongside conditional quality; do not hide failed runs."
+  ],
+  "rows": [
+    {
+      "id": "AGG-1",
+      "lang": "ko",
+      "category": "aggregation",
+      "completed": true,
+      "routing_observed": 1,
+      "routing_on_completed": 1,
+      "completion_and_routing": 1,
+      "additional_tools": [],
+      "citation_required": false,
+      "citation_requirement_inferred": true,
+      "citation_present_when_required": null,
+      "citation_validity": null,
+      "citation_count": 0,
+      "tool_error_count": 0,
+      "seconds": 4.779,
+      "exact_context_capture": true
+    }
+  ]
+}
