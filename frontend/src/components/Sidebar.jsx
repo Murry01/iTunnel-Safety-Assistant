@@ -76,7 +76,7 @@ export default function Sidebar({
       >
         <div className="flex min-w-0 items-center gap-2.5">
           <TunnelLogo />
-          {labels && <span className="whitespace-nowrap text-base font-semibold tracking-tight text-fog-50">iTunnel</span>}
+          {labels && <span className="whitespace-nowrap text-base font-semibold tracking-tight text-fog-50">Tunnel Safety Agent</span>}
         </div>
         <button
           title={collapsed ? "Expand sidebar" : "Collapse sidebar"}

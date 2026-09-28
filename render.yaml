@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: construction-rag
+    name: tunnel-safety-agent
     runtime: docker
     plan: free
     dockerfilePath: ./Dockerfile

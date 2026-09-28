@@ -61,6 +61,6 @@ jobs:
         with:
           context: .
           push: false
-          tags: construction-rag:ci
+          tags: tunnel-safety-agent:ci
           cache-from: type=gha
           cache-to: type=gha,mode=max

@@ -33,7 +33,7 @@ export default function Composer({ value, onChange, onSend, onStop, busy, maxWid
         autoFocus={autoFocus}
         onChange={(e) => onChange(e.target.value)}
         onKeyDown={handleKeyDown}
-        placeholder="Ask iTunnel about tunnel safety, standards, incidents…"
+        placeholder="Ask Tunnel Safety Agent about tunnel safety, standards, incidents…"
         className="min-w-0 flex-1 resize-none self-center bg-transparent py-1 font-sans text-sm leading-relaxed text-fog-100 placeholder:text-fog-700"
       />
       {withVoice && (

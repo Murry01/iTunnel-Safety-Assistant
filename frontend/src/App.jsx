@@ -419,7 +419,7 @@ export default function App() {
             <div className="px-6 pb-5 pt-3.5">
               <Composer value={composerText} onChange={setComposerText} onSend={sendMessage} onStop={stopGeneration} busy={thinking} />
               <p className="mt-[9px] text-center text-[11px] text-fog-800">
-                iTunnel can make mistakes. Verify safety-critical outputs against source documents.
+                Tunnel Safety Agent can make mistakes. Verify safety-critical outputs against source documents.
               </p>
             </div>
           </>

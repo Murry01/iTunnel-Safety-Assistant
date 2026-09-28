@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-common.py — shared loader for the construction_rag ingestion scripts.
+common.py — shared loader for the Tunnel Safety Agent ingestion scripts.
 Reads Tunnel_data_master.csv (utf-8-sig) and renames columns to English identifiers.
 """
 import sys

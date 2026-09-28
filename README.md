@@ -1,4 +1,4 @@
-# construction_rag — ingestion scripts
+# Tunnel Safety Agent — ingestion scripts
 
 Research evaluation: see [eval/README.md](eval/README.md) for the current RQ1–RQ4
 workflow and [eval/STATUS.md](eval/STATUS.md) for completed checks and blockers.
@@ -7,7 +7,7 @@ The July evaluation files are pilot results, not final manuscript evidence.
 GitHub, Docker, CI/CD, and web deployment instructions are in
 [DEPLOYMENT.md](DEPLOYMENT.md).
 
-Builds the three stores for the Tunnel Accident Prevention Assistant
+Builds the three stores for the Tunnel Safety Agent
 from `Tunnel_data_master.csv` (place it in the project root, next to
 `ingestion\`, unless you pass an explicit path). All four scripts live under
 `ingestion\` as plain sibling-import scripts — run them with
@@ -75,11 +75,11 @@ ingestion\<script>.py`, since Python puts a script's own directory on
 
 
 
-# Tunnel Accident Prevention Assistant — agent + backend
+# Tunnel Safety Agent — agent + backend
 
 ## Layout (place next to your stores)
 ```
-construction_rag\
+tunnel-safety-agent\
 ├── accidents.db          <- from ingestion\build_sqlite.py
 ├── chats.db              <- conversation history, created automatically
 ├── lancedb\              <- from ingestion\build_lancedb.py

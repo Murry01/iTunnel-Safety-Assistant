@@ -23,7 +23,7 @@ TOOLS = {
 }
 TOOL_SCHEMAS = [t.SCHEMA for t in TOOLS.values()]
 
-SYSTEM_PROMPT = """You are the Tunnel Accident Prevention Assistant (터널사고 예방 도우미),
+SYSTEM_PROMPT = """You are the Tunnel Safety Agent (터널사고 예방 도우미),
 an expert on 310 real tunnel construction accident cases from Korea.
 
 TOOL ROUTING RULES:

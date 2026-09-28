@@ -1,6 +1,6 @@
-# iTunnel Assistant — Frontend
+# Tunnel Safety Agent — Frontend
 
-A production-ready React frontend for the iTunnel RAG assistant. Built with **Vite + React 18 + Tailwind CSS**, with markdown rendering, agent reasoning traces, risk banners, and source citations.
+A production-ready React frontend for the Tunnel Safety Agent. Built with **Vite + React 18 + Tailwind CSS**, with markdown rendering, agent reasoning traces, risk banners, and source citations.
 
 ## Quick start
 

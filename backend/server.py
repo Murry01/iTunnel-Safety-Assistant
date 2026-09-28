@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-server.py — FastAPI backend for the Tunnel Accident Prevention Assistant.
+server.py — FastAPI backend for the Tunnel Safety Agent.
 
 Thin HTTP/SSE wrapper around the existing orchestrator/chatstore/tools
 modules; no business logic lives here. Run from the project root (the
@@ -30,7 +30,7 @@ class UTF8JSONResponse(JSONResponse):
 
 
 app = FastAPI(
-    title="Tunnel Accident Prevention Assistant API",
+    title="Tunnel Safety Agent API",
     default_response_class=UTF8JSONResponse,
 )
 
